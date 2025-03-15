@@ -1,7 +1,7 @@
 const express = require("express");
 
 const app = express();
-
+app.use(express.json())
 var books=[
     {
         id: 1,
@@ -51,6 +51,26 @@ app.get("/books/:num", (req, res) => {
     }
 });
 app.post("/books/add",(req,res)=>{
-    var n1=books.length.id +1
-    
+    var n1=books[books.length-1].id +1
+    var newobj={
+        id:n1,
+        ...req.body
+    }
+    books.push(newobj)
+    res.status(200).json(books)
+})
+app.put("/books/update/:id",(req,res)=>{
+    var a_id=req.params.id
+    // console.log(a_id)
+    let n1=books.map((value)=>{
+        if(value.id===parseInt(a_id)){
+            // console.log(value.id,parseInt(a_id))
+            console.log(req.body.Book_name,req.body.price)
+            value.Book_name = req.body.Book_name
+            value.price= req.body.price
+        }
+        return value
+    })
+    books=n1
+    res.status(200).json(books)
 })
