@@ -74,3 +74,15 @@ app.put("/books/update/:id",(req,res)=>{
     books=n1
     res.status(200).json(books)
 })
+app.delete("/books/remove/:id",(req,res)=>{
+    var a_id=req.params.id
+    var n1=books.map((value)=>{
+        if(value.id===parseInt(a_id)){
+            console.log("Element is removed")
+        }else{
+            return value
+        }
+    })
+    books=n1
+    res.status(200).json(books)
+})
