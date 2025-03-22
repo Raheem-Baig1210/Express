@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.listen(5050, () => console.log("Server Started successfully...!!!"));
+app.listen(5003, () => console.log("Server Started successfully...!!!"));
 
 app.use(express.json());
 

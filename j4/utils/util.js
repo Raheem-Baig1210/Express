@@ -1,4 +1,4 @@
-const responseGenerator = (success , message , data)=>{
+const response = (success , message , data) => {
     let resObj={}
     resObj.success = success
     resObj.message = message || (success ? "success":"Failed")
@@ -6,8 +6,8 @@ const responseGenerator = (success , message , data)=>{
         resObj.data=data
     }
     return resObj
-}
+};
 
 module.exports={
-    responseGenerator
+    response,
 }

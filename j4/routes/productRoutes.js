@@ -1,10 +1,12 @@
 const express = require("express")
 const p_cntrl = require("../controllers/productCntrl")
-const u_cntrl = require("../controllers/userCntrl")
 
-const router = express.Router()
 
-router.get("/",p_cntrl.getProducts)
-router.post("/addProduct",p_cntrl.addProduct)
+const routes = express.Router()
 
-module.exports = router
+routes.get("/",p_cntrl.getProducts)
+routes.post("/addproduct",p_cntrl.addProduct);
+routes.put("/update/:id",p_cntrl.update);
+routes.delete("/remove/:id",p_cntrl.remove);
+
+module.exports = routes
