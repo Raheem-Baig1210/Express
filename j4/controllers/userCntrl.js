@@ -1,5 +1,38 @@
 const u_M = require("../models/user_Model");
-const { response } = require("../utils/util");
+const { response,hashPassword,comparePassword,generateTokens } = require("../utils/util");
+
+
+const login = async(req,res) => {
+  try {
+    const { email,password } = req.body;
+    const user = await u_M.findOne({email}).lean()
+    if(user){
+      const isPasswordMatches = await comparePassword(password,user.password);
+      console.log(password,user.password)
+      if(password===user.password){
+        const token=generateTokens({email, name: user.name, id: user.id, role: user.role});
+        return res.status(200).json({
+          message : "User LoggedIn successfully ...!!!",
+          success: true,
+          data:{
+            name: user.name,
+            id: user.id,
+            role: user.role,
+            token
+          },
+        })
+      }
+    }
+    res.status(401).json({success: false, message:"Incorrect email or password ...!!!!"})
+  } catch (err) {
+    console.log(err)
+    let resp = response(false);
+    res.status(404).json(resp)
+  }
+}
+
+
+
 
 const getusers = async (req, res) => {
   try {
@@ -69,4 +102,5 @@ module.exports = {
   adduser,
   update,
   getUserById,
+  login
 };
